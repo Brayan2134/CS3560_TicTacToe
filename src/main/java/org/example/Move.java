@@ -19,14 +19,10 @@ public final class Move {
     /**
      * Creates a move at (row, col) with the given mark.
      * Preconditions:
-     *  - row >= 0
-     *  - col >= 0
-     *  - mark != null
-     *  - mark != Mark.EMPTY
-     *
-     * @param row zero-based row index (must be >= 0; board size checked in Board)
-     * @param col zero-based column index (must be >= 0; board size checked in Board)
-     * @param mark X or O (never EMPTY here)
+     *  @param row >= 0
+     *  @param col >= 0
+     *  @param mark != null
+     *  @param mark != Mark.EMPTY
      *
      * Postconditions:
      *  - A new immutable Move is created with the provided values.
