@@ -68,8 +68,29 @@ public final class Board {
      * @throws IllegalArgumentException if any precondition is violated
      */
     public void place(Move mv) {
-        // TODO: implement validation + placement
-        throw new UnsupportedOperationException("TODO: Board.place");
+        if (mv == null) {
+            throw new IllegalArgumentException("Move must not be null");
+        }
+
+        int r = mv.row();
+        int c = mv.col();
+
+        // bounds check
+        if (r < 0 || r >= size || c < 0 || c >= size) {
+            throw new IllegalArgumentException(
+                    "Move out of bounds: (" + r + "," + c + ") for size " + size
+            );
+        }
+
+        // availability check
+        if (grid[r][c] != Mark.EMPTY) {
+            throw new IllegalArgumentException(
+                    "Cell already occupied at (" + r + "," + c + ")"
+            );
+        }
+
+        // all checks passed → place the mark
+        grid[r][c] = mv.mark();
     }
 
     /**
@@ -85,8 +106,12 @@ public final class Board {
      * @throws IllegalArgumentException if indices are out of bounds
      */
     public Mark getCell(int r, int c) {
-        // TODO: index validation + return grid[r][c]
-        throw new UnsupportedOperationException("TODO: Board.getCell");
+        if (r < 0 || r >= size || c < 0 || c >= size) {
+            throw new IllegalArgumentException(
+                    "indices out of bounds: (" + r + "," + c + ") for size " + size
+            );
+        }
+        return grid[r][c];
     }
 
     /**
@@ -96,8 +121,14 @@ public final class Board {
      *  - If result == true, then for all r,c: grid[r][c] != EMPTY.
      */
     public boolean isFull() {
-        // TODO: scan for EMPTY; return accordingly
-        throw new UnsupportedOperationException("TODO: Board.isFull");
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                if (grid[r][c] == Mark.EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     /**
@@ -108,8 +139,63 @@ public final class Board {
      *  - Otherwise returns Optional.empty().
      */
     public Optional<Mark> winner() {
-        // TODO: scan rows, columns, diagonals
-        throw new UnsupportedOperationException("TODO: Board.winner");
+        // rows (first, second, third)
+        for (int r = 0; r < size; r++) {
+            Mark first = grid[r][0];
+            if (first != Mark.EMPTY) {
+                boolean allSame = true;
+                for (int c = 1; c < size; c++) {
+                    if (grid[r][c] != first) {
+                        allSame = false;
+                        break;
+                    }
+                }
+                if (allSame) return Optional.of(first);
+            }
+        }
+
+        // columns (first, second, third)
+        for (int c = 0; c < size; c++) {
+            Mark first = grid[0][c];
+            if (first != Mark.EMPTY) {
+                boolean allSame = true;
+                for (int r = 1; r < size; r++) {
+                    if (grid[r][c] != first) {
+                        allSame = false;
+                        break;
+                    }
+                }
+                if (allSame) return Optional.of(first);
+            }
+        }
+
+        // diagonal (top-left -> bottom-right)
+        Mark firstMain = grid[0][0];
+        if (firstMain != Mark.EMPTY) {
+            boolean allSame = true;
+            for (int i = 1; i < size; i++) {
+                if (grid[i][i] != firstMain) {
+                    allSame = false;
+                    break;
+                }
+            }
+            if (allSame) return Optional.of(firstMain);
+        }
+
+        // diagonal (top-right -> bottom-left)
+        Mark firstAnti = grid[0][size - 1];
+        if (firstAnti != Mark.EMPTY) {
+            boolean allSame = true;
+            for (int i = 1; i < size; i++) {
+                if (grid[i][size - 1 - i] != firstAnti) {
+                    allSame = false;
+                    break;
+                }
+            }
+            if (allSame) return Optional.of(firstAnti);
+        }
+
+        return Optional.empty();
     }
 
     /**
@@ -119,8 +205,11 @@ public final class Board {
      *  - For all r,c in [0,size): grid[r][c] == EMPTY
      */
     public void reset() {
-        // TODO: set all cells to EMPTY
-        throw new UnsupportedOperationException("TODO: Board.reset");
+        for (int r = 0; r < size; r++) {
+            for (int c = 0; c < size; c++) {
+                grid[r][c] = Mark.EMPTY;
+            }
+        }
     }
 
     /** @return the dimension of the board. */
