@@ -30,6 +30,9 @@ The project is structured around the **Model-View-Controller (MVC)** pattern:
     - `Player` – abstract base class with `nextMove(Board)`.
     - `HumanPlayer` – asks the user for input via console.
     - `RandomAIPlayer` – picks a random empty cell.
+    - `MinimaxAIPlayer` - uses the Minimax algorithm to try to beat a user.
 
-- **View (console only)**
-    - `ConsoleApp` – entry point with `main(...)`. Handles text I/O and prints the board between moves.
+- **View**
+    - `Startup` - entry point of program.
+    - `ConsoleApp` – handles text I/O and prints the board between moves.
+    - `GUIApp` - handles graphical I/O and shows board between moves.
