@@ -10,7 +10,7 @@ public final class ConsoleApp {
         Board board = new Board(3);
         Player human = new HumanPlayer(Mark.X);      // reads from System.in
         //Player ai = new RandomAIPlayer(Mark.O);
-        Player ai = new AIPlayerMinimax(Mark.O);
+        Player ai = new MinimaxAIPlayer(Mark.O);
 
         Player current = human; // X starts
         Optional<Mark> winner = Optional.empty();

@@ -12,12 +12,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * - Chooses the move with the highest score from the AI's perspective.
  * - Ties are broken randomly among the best-scoring moves.
  */
-public final class AIPlayerMinimax extends Player {
+public final class MinimaxAIPlayer extends Player {
 
     //Flip to true to print a score matrix for this turn (### = occupied)
     private static final boolean DEBUG = false;
 
-    public AIPlayerMinimax(Mark mark) {
+    public MinimaxAIPlayer(Mark mark) {
         super(mark);
     }
 
