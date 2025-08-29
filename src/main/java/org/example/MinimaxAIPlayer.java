@@ -23,7 +23,7 @@ public final class MinimaxAIPlayer extends Player {
 
     /**
      * Preconditions:
-     *  - board != null
+     *  @param board != null
      * Postconditions:
      *  - Returns a legal Move (row/col point to EMPTY).
      *  - If multiple best moves exist, one is chosen at random.

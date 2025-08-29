@@ -8,8 +8,8 @@ public final class Startup {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Select application mode:");
-        System.out.println("  0 → GUI (not yet implemented)");
-        System.out.println("  1 → CLI (console-based Tic-Tac-Toe)");
+        System.out.println("  0: GUI");
+        System.out.println("  1: CLI (console-based Tic-Tac-Toe)");
 
         int choice = -1;
         while (choice != 0 && choice != 1) {
@@ -22,8 +22,8 @@ public final class Startup {
         }
 
         if (choice == 0) {
-            System.out.println("\n[TODO] GUI mode not yet implemented. Exiting...");
-            // Future: launch GUIApp.main(args) or similar
+            System.out.println("\nLaunching GUI mode...\n");
+            GUIApp.launch();
         } else {
             System.out.println("\nLaunching CLI mode...\n");
             ConsoleApp.main(args); // delegate
